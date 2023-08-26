@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:note_taking_app/styles/app_style.dart';
+import 'package:note_taking_app/widgets/note_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,28 +39,34 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 20.0,
             ),
-            StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection("Notes").snapshots(),
-              builder: (context, AsyncSnapshot snapshot) {
-                //checking the connection state, if we still load the data we can display a progress bar
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream:
+                    FirebaseFirestore.instance.collection("Notes").snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  //checking the connection state, if we still load the data we can display a progress bar
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
 
-                if (snapshot.hasData) {
-                  return GridView(
+                  if (snapshot.hasData) {
+                    return GridView(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2));
-                }
+                          crossAxisCount: 2),
+                      children: snapshot.data!.docs
+                          .map((note) => noteCard(() {}, note))
+                          .toList(),
+                    );
+                  }
 
-                return Text(
-                  "There's no Notes",
-                  style: GoogleFonts.nunito(color: Colors.white),
-                );
-              },
+                  return Text(
+                    "There's no Notes",
+                    style: GoogleFonts.nunito(color: Colors.white),
+                  );
+                },
+              ),
             )
           ],
         ),
