@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:note_taking_app/screens/note_reader.dart';
 import 'package:note_taking_app/styles/app_style.dart';
 import 'package:note_taking_app/widgets/note_card.dart';
 
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Your recent Notes",
+              "Recent Notes",
               style: GoogleFonts.roboto(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -56,7 +57,13 @@ class _HomePageState extends State<HomePage> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2),
                       children: snapshot.data!.docs
-                          .map((note) => noteCard(() {}, note))
+                          .map((note) => noteCard(() {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            NoteReaderScreen(note)));
+                              }, note))
                           .toList(),
                     );
                   }
