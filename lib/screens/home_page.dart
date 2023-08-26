@@ -71,6 +71,11 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Text("New"),
+        icon: Icon(Icons.add),
+      ),
     );
   }
 }
