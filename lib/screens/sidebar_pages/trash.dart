@@ -12,57 +12,55 @@ class TrashPage extends StatefulWidget {
 class _TrashPageState extends State<TrashPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppStyle.mainColor,
-        appBar: AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          elevation: 0.0,
-          title: Text(
-            "Trash",
-          ),
-          actions: [
-            PopupMenuButton<String>(
-              icon: Icon(Icons.more_vert, color: Colors.white),
-              onSelected: (value) {
-                if (value == 'Empty Trash') {}
-              },
-              itemBuilder: (BuildContext context) {
-                return [
-                  PopupMenuItem<String>(
-                    value: 'Empty Trash',
-                    child: Text(
-                      'Empty Trash',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ];
-              },
-              color: AppStyle.sideColor,
-            )
-          ],
-          backgroundColor: Colors.transparent,
+    return Scaffold(
+      backgroundColor: AppStyle.mainColor,
+      appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
         ),
-        drawer: SideBar(),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                "No notes in Trash",
-                style: TextStyle(
-                  color: Colors.white,
+        elevation: 0.0,
+        title: Text(
+          "Trash",
+        ),
+        actions: [
+          PopupMenuButton<String>(
+            icon: Icon(Icons.more_vert, color: Colors.white),
+            onSelected: (value) {
+              if (value == 'Empty Trash') {}
+            },
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem<String>(
+                  value: 'Empty Trash',
+                  child: Text(
+                    'Empty Trash',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
+              ];
+            },
+            color: AppStyle.sideColor,
+          )
+        ],
+        backgroundColor: Colors.transparent,
+      ),
+      drawer: SideBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              "No notes in Trash",
+              style: TextStyle(
+                color: Colors.white,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

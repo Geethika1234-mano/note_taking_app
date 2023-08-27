@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/screens/footer_pages/list_items_page.dart';
+import 'package:note_taking_app/screens/footer_pages/paint_page.dart';
 import 'package:note_taking_app/styles/app_style.dart';
 
 class FooterButton extends StatefulWidget {
@@ -19,7 +21,12 @@ class _FooterButtonState extends State<FooterButton> {
           children: [
             IconButton(
               padding: EdgeInsets.all(0),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListItemsPage()),
+                );
+              },
               icon: Icon(
                 Icons.check_box_outlined,
                 color: Colors.white,
@@ -27,7 +34,12 @@ class _FooterButtonState extends State<FooterButton> {
             ),
             IconButton(
               padding: EdgeInsets.all(0),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PaintPage()),
+                );
+              },
               icon: Icon(
                 Icons.brush_outlined,
                 color: Colors.white,

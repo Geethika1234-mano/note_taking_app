@@ -11,50 +11,48 @@ class NewLabel extends StatefulWidget {
 class _NewLabelState extends State<NewLabel> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppStyle.mainColor,
-        appBar: AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          elevation: 0.0,
-          title: Text(
-            "Edit labels",
-          ),
-          backgroundColor: Colors.transparent,
+    return Scaffold(
+      backgroundColor: AppStyle.mainColor,
+      appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 10.0,
-              ),
-              ListTile(
-                title: Text(
-                  "Create new label",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                contentPadding: EdgeInsets.all(0.0),
-                leading: Icon(
-                  Icons.close,
+        elevation: 0.0,
+        title: Text(
+          "Edit labels",
+        ),
+        backgroundColor: Colors.transparent,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 10.0,
+            ),
+            ListTile(
+              title: Text(
+                "Create new label",
+                style: TextStyle(
                   color: Colors.white,
-                  size: 20,
                 ),
-                trailing: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                onTap: null,
               ),
-            ],
-          ),
+              contentPadding: EdgeInsets.all(0.0),
+              leading: Icon(
+                Icons.close,
+                color: Colors.white,
+                size: 20,
+              ),
+              trailing: Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 20,
+              ),
+              onTap: null,
+            ),
+          ],
         ),
       ),
     );
