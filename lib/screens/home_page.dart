@@ -5,6 +5,7 @@ import 'package:note_taking_app/screens/note_editor.dart';
 import 'package:note_taking_app/screens/note_reader.dart';
 import 'package:note_taking_app/styles/app_style.dart';
 import 'package:note_taking_app/widgets/note_card.dart';
+import 'package:note_taking_app/widgets/sidebar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,10 +21,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppStyle.mainColor,
       appBar: AppBar(
         elevation: 0.0,
-        title: Text("FireNotes"),
-        centerTitle: true,
+        title: Text("Search your notes"),
         backgroundColor: AppStyle.mainColor,
       ),
+      drawer: SideBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
