@@ -31,16 +31,8 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Recent Notes",
-              style: GoogleFonts.roboto(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
-            ),
             SizedBox(
-              height: 20.0,
+              height: 10.0,
             ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
