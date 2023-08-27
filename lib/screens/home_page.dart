@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:note_taking_app/screens/note_editor.dart';
 import 'package:note_taking_app/screens/note_reader.dart';
 import 'package:note_taking_app/styles/app_style.dart';
 import 'package:note_taking_app/widgets/note_card.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 0.0,
         title: Text("Search your notes"),
-        backgroundColor: AppStyle.mainColor,
+        backgroundColor: AppStyle.sideColor,
       ),
       drawer: SideBar(),
       body: Padding(
@@ -79,53 +80,71 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     Navigator.push(context,
-      //         MaterialPageRoute(builder: (context) => NoteEditorScreen()));
-      //   },
-      //   label: Text("New"),
-      //   icon: Icon(Icons.add),
-      // ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: FloatingActionButton(
+          backgroundColor: AppStyle.sideColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              16,
+            ),
+            side: BorderSide(
+              width: 5,
+              color: AppStyle.mainColor,
+            ),
+          ),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NoteEditorScreen()));
+          },
+          child: Icon(
+            Icons.add,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       persistentFooterButtons: [
-        Container(
-          height: 15,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                padding: EdgeInsets.all(0),
-                onPressed: () {},
-                icon: Icon(
-                  Icons.check_box_outlined,
-                  color: Colors.white,
+        Expanded(
+          child: Container(
+            color: AppStyle.sideColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.check_box_outlined,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              IconButton(
-                padding: EdgeInsets.all(0),
-                onPressed: () {},
-                icon: Icon(
-                  Icons.brush_outlined,
-                  color: Colors.white,
+                IconButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.brush_outlined,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              IconButton(
-                padding: EdgeInsets.all(0),
-                onPressed: () {},
-                icon: Icon(
-                  Icons.mic_outlined,
-                  color: Colors.white,
+                IconButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.mic_outlined,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              IconButton(
-                padding: EdgeInsets.all(0),
-                onPressed: () {},
-                icon: Icon(
-                  Icons.photo_outlined,
-                  color: Colors.white,
+                IconButton(
+                  padding: EdgeInsets.all(0),
+                  color: AppStyle.sideColor,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.photo_outlined,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

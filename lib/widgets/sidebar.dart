@@ -13,7 +13,7 @@ class _SideBarState extends State<SideBar> {
   Widget build(BuildContext context) {
     return Container(
       child: Drawer(
-        backgroundColor: AppStyle.mainColor,
+        backgroundColor: AppStyle.sideColor,
         child: SafeArea(
           child: Container(
             padding: const EdgeInsets.all(18.0),
