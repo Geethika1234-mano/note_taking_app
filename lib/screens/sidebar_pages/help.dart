@@ -19,13 +19,13 @@ class _HelpPageState extends State<HelpPage> {
             borderRadius: BorderRadius.circular(30),
           ),
           elevation: 0.0,
-          title: Text(
+          title: const Text(
             "Help",
           ),
           backgroundColor: Colors.transparent,
           actions: [
             PopupMenuButton<String>(
-              icon: Icon(Icons.more_vert, color: Colors.white),
+              icon: const Icon(Icons.more_vert, color: Colors.white),
               onSelected: (value) {
                 if (value == 'View in Google Play Store') {
                 } else if (value == 'Clear help history') {
@@ -35,35 +35,35 @@ class _HelpPageState extends State<HelpPage> {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  PopupMenuItem<String>(
+                  const PopupMenuItem<String>(
                     value: 'View in Google Play Store',
                     child: Text(
                       'View in Google Play Store',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  PopupMenuItem<String>(
+                  const PopupMenuItem<String>(
                     value: 'Clear help history',
                     child: Text(
                       'Clear help history',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  PopupMenuItem<String>(
+                  const PopupMenuItem<String>(
                     value: 'Version info',
                     child: Text(
                       'Version info',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  PopupMenuItem<String>(
+                  const PopupMenuItem<String>(
                     value: 'Privacy Policy',
                     child: Text(
                       'Privacy Policy',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  PopupMenuItem<String>(
+                  const PopupMenuItem<String>(
                     value: 'Open source licenses',
                     child: Text(
                       'Open source licenses',
@@ -84,64 +84,64 @@ class _HelpPageState extends State<HelpPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "popular help resources",
                 style: TextStyle(color: Colors.white, fontSize: 17),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ListTile(
-                title: Text(
+                title: const Text(
                   "How to use Google Keep",
                   style: TextStyle(color: Colors.white),
                 ),
                 tileColor: Colors.blueGrey.shade900,
-                leading: Icon(
+                leading: const Icon(
                   Icons.description_outlined,
                   color: Colors.white,
                 ),
               ),
               ListTile(
-                title: Text(
+                title: const Text(
                   "Export your data from Google Keep",
                   style: TextStyle(color: Colors.white),
                 ),
                 tileColor: Colors.blueGrey.shade900,
-                leading: Icon(
+                leading: const Icon(
                   Icons.description_outlined,
                   color: Colors.white,
                 ),
               ),
               ListTile(
-                title: Text(
+                title: const Text(
                   "Fix problems with Google Keep",
                   style: TextStyle(color: Colors.white),
                 ),
                 tileColor: Colors.blueGrey.shade900,
-                leading: Icon(
+                leading: const Icon(
                   Icons.description_outlined,
                   color: Colors.white,
                 ),
               ),
               ListTile(
-                title: Text(
+                title: const Text(
                   "Archive notes & lists",
                   style: TextStyle(color: Colors.white),
                 ),
                 tileColor: Colors.blueGrey.shade900,
-                leading: Icon(
+                leading: const Icon(
                   Icons.description_outlined,
                   color: Colors.white,
                 ),
               ),
               ListTile(
-                title: Text(
+                title: const Text(
                   "Create or edit a note",
                   style: TextStyle(color: Colors.white),
                 ),
                 tileColor: Colors.blueGrey.shade900,
-                leading: Icon(
+                leading: const Icon(
                   Icons.description_outlined,
                   color: Colors.white,
                 ),
@@ -152,18 +152,18 @@ class _HelpPageState extends State<HelpPage> {
                   color: Colors.blueGrey.shade800,
                 ),
                 child: ListTile(
-                  title: Text(
+                  title: const Text(
                     "Search help",
                     style: TextStyle(color: Colors.white),
                   ),
                   tileColor: Colors.blueGrey.shade900,
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.search,
                     color: Colors.white,
                   ),
                 ),
               ),
-              ListTile(
+              const ListTile(
                 title: Text(
                   "Send feedback",
                   style: TextStyle(color: Colors.white),
