@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/screens/home_page.dart';
+import 'package:note_taking_app/screens/sidebar_pages/archive.dart';
+import 'package:note_taking_app/screens/sidebar_pages/help.dart';
+import 'package:note_taking_app/screens/sidebar_pages/newlabel.dart';
+import 'package:note_taking_app/screens/sidebar_pages/reminders.dart';
+import 'package:note_taking_app/screens/sidebar_pages/settings.dart';
+import 'package:note_taking_app/screens/sidebar_pages/trash.dart';
 import 'package:note_taking_app/styles/app_style.dart';
 
 class SideBar extends StatefulWidget {
@@ -17,7 +24,7 @@ class _SideBarState extends State<SideBar> {
         child: SafeArea(
           child: Container(
             padding: const EdgeInsets.all(18.0),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -47,7 +54,12 @@ class _SideBarState extends State<SideBar> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
                 ),
                 ListTile(
                   minLeadingWidth: 1,
@@ -65,7 +77,12 @@ class _SideBarState extends State<SideBar> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Reminders()),
+                    );
+                  },
                 ),
                 ListTile(
                   minLeadingWidth: 1,
@@ -83,7 +100,12 @@ class _SideBarState extends State<SideBar> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewLabel()),
+                    );
+                  },
                 ),
                 ListTile(
                   minLeadingWidth: 1,
@@ -101,7 +123,12 @@ class _SideBarState extends State<SideBar> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ArchivePage()),
+                    );
+                  },
                 ),
                 ListTile(
                   minLeadingWidth: 1,
@@ -119,7 +146,12 @@ class _SideBarState extends State<SideBar> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TrashPage()),
+                    );
+                  },
                 ),
                 ListTile(
                   minLeadingWidth: 1,
@@ -137,7 +169,12 @@ class _SideBarState extends State<SideBar> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsPage()),
+                    );
+                  },
                 ),
                 ListTile(
                   minLeadingWidth: 1,
@@ -155,7 +192,12 @@ class _SideBarState extends State<SideBar> {
                     color: Colors.white,
                     size: 20,
                   ),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HelpPage()),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 28.0,

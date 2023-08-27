@@ -5,7 +5,7 @@ class AppStyle {
   static Color bgColor = Color(0xFFe2e2fe);
   static Color mainColor = Color.fromARGB(255, 5, 9, 43);
   static Color accentColor = Color(0xFF0065FF);
-  static Color sideColor = Color.fromARGB(255, 12, 19, 83);
+  static Color sideColor = Colors.blueGrey.shade800;
 
   //setting the cards different color
 
