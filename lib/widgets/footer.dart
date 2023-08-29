@@ -13,57 +13,55 @@ class FooterButton extends StatefulWidget {
 class _FooterButtonState extends State<FooterButton> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: AppStyle.sideColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ListItemsPage()),
-                );
-              },
-              icon: Icon(
-                Icons.check_box_outlined,
-                color: Colors.white,
-              ),
+    return Container(
+      color: AppStyle.sideColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListItemsPage()),
+              );
+            },
+            icon: Icon(
+              Icons.check_box_outlined,
+              color: Colors.white,
             ),
-            IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PaintPage()),
-                );
-              },
-              icon: Icon(
-                Icons.brush_outlined,
-                color: Colors.white,
-              ),
+          ),
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PaintPage()),
+              );
+            },
+            icon: Icon(
+              Icons.brush_outlined,
+              color: Colors.white,
             ),
-            IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {},
-              icon: Icon(
-                Icons.mic_outlined,
-                color: Colors.white,
-              ),
+          ),
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            icon: Icon(
+              Icons.mic_outlined,
+              color: Colors.white,
             ),
-            IconButton(
-              padding: EdgeInsets.all(0),
-              color: AppStyle.sideColor,
-              onPressed: () {},
-              icon: Icon(
-                Icons.photo_outlined,
-                color: Colors.white,
-              ),
+          ),
+          IconButton(
+            padding: EdgeInsets.all(0),
+            color: AppStyle.sideColor,
+            onPressed: () {},
+            icon: Icon(
+              Icons.photo_outlined,
+              color: Colors.white,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

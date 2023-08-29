@@ -14,86 +14,88 @@ class _ListItemsPageState extends State<ListItemsPage> {
       backgroundColor: AppStyle.sideColor,
       context: context,
       builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            //--------Take photo----------
-            ListTile(
-              leading: Icon(
-                Icons.camera,
-                color: Colors.white,
-              ),
-              title: Text(
-                'Take Photo',
-                style: TextStyle(
+        return Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              //--------Take photo----------
+              ListTile(
+                leading: Icon(
+                  Icons.camera,
                   color: Colors.white,
                 ),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            //--------Add image-----------
-            ListTile(
-              leading: Icon(
-                Icons.photo_library,
-                color: Colors.white,
-              ),
-              title: Text('Add image',
+                title: Text(
+                  'Take Photo',
                   style: TextStyle(
                     color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            //--------Drawing--------------
-            ListTile(
-              leading: Icon(
-                Icons.brush,
-                color: Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
-              title: Text('Drawing',
-                  style: TextStyle(
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
 
-            //-------Recording------------
-            ListTile(
-              leading: Icon(
-                Icons.mic_outlined,
-                color: Colors.white,
+              //--------Add image-----------
+              ListTile(
+                leading: Icon(
+                  Icons.photo_library,
+                  color: Colors.white,
+                ),
+                title: Text('Add image',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
-              title: Text('Recording',
-                  style: TextStyle(
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
 
-            //--------Checkboxes----------
-            ListTile(
-              leading: Icon(
-                Icons.check_box_outlined,
-                color: Colors.white,
+              //--------Drawing--------------
+              ListTile(
+                leading: Icon(
+                  Icons.brush,
+                  color: Colors.white,
+                ),
+                title: Text('Drawing',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
-              title: Text('Checkboxes',
-                  style: TextStyle(
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
+
+              //-------Recording------------
+              ListTile(
+                leading: Icon(
+                  Icons.mic_outlined,
+                  color: Colors.white,
+                ),
+                title: Text('Recording',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+
+              //--------Checkboxes----------
+              ListTile(
+                leading: Icon(
+                  Icons.check_box_outlined,
+                  color: Colors.white,
+                ),
+                title: Text('Checkboxes',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         );
       },
     );
