@@ -18,75 +18,6 @@
 //   TextEditingController _titleController = TextEditingController();
 //   TextEditingController _mainController = TextEditingController();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         elevation: 0.0,
-//         backgroundColor: AppStyle.cardsColor[color_id],
-//         iconTheme: IconThemeData(color: Colors.black),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             TextField(
-//               controller: _titleController,
-//               decoration:
-//                   InputDecoration(border: InputBorder.none, hintText: "Title"),
-//               style: AppStyle.mainTitle,
-//             ),
-//             SizedBox(height: 8.0),
-//             Text(date, style: AppStyle.dateTitle),
-//             SizedBox(height: 28.0),
-//             TextField(
-//               controller: _mainController,
-//               keyboardType: TextInputType.multiline,
-//               maxLines: null,
-//               decoration: InputDecoration(
-//                   border: InputBorder.none, hintText: "Note Content"),
-//               style: AppStyle.mainTitle,
-//             ),
-//           ],
-//         ),
-//       ),
-//       persistentFooterButtons: [
-//         FooterButton(),
-//       ],
-//       floatingActionButton: Padding(
-//         padding: const EdgeInsets.all(20.0),
-//         child: FloatingActionButton(
-//           backgroundColor: AppStyle.sideColor,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(
-//               16,
-//             ),
-//             side: BorderSide(
-//               width: 5,
-//               color: AppStyle.mainColor,
-//             ),
-//           ),
-//           onPressed: () async {
-//             FirebaseFirestore.instance.collection("Notes").add({
-//               "note_title": _titleController.text,
-//               "creation_date": date,
-//               "note_content": _mainController.text,
-//               "color_id": color_id,
-//             }).then((value) {
-//               print(value.id);
-//               Navigator.pop(context);
-//             }).catchError(
-//                 (error) => print("Failed to add new Note due to $error"));
-//           },
-//           child: Icon(Icons.save),
-//         ),
-//       ),
-//       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-//     );
-//   }
-// }
-
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -300,15 +231,16 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             children: <Widget>[
               //--------Delete----------
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.delete_outline,
                   color: Colors.white,
                 ),
-                title: Text('Delete',
+                title: const Text('Delete',
                     style: TextStyle(
                       color: Colors.white,
                     )),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.pop(context);
                 },
               ),
@@ -324,17 +256,42 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                       color: Colors.white,
                     )),
                 onTap: () {
-                  Navigator.pop(context);
+                  if (_mainController.text.isEmpty) {
+                    Navigator.pop(context);
+                  } else {
+                    String date = DateFormat.jm().format(DateTime.now());
+                    FirebaseFirestore.instance.collection("Notes").add({
+                      "note_title": _titleController.text,
+                      "creation_date": date,
+                      "note_content": _mainController.text,
+                      "color_id": color_id,
+                    }).then((value) {
+                      print(value.id);
+                      Navigator.pop(context);
+                    }).catchError((error) =>
+                        print("Failed to add new Note due to $error"));
+
+                    FirebaseFirestore.instance.collection("Notes").add({
+                      "note_title": _titleController.text,
+                      "creation_date": date,
+                      "note_content": _mainController.text,
+                      "color_id": color_id,
+                    }).then((value) {
+                      print(value.id);
+                      Navigator.pop(context);
+                    }).catchError((error) =>
+                        print("Failed to add new Note due to $error"));
+                  }
                 },
               ),
 
               //--------Send--------------
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.share,
                   color: Colors.white,
                 ),
-                title: Text('Send',
+                title: const Text('Send',
                     style: TextStyle(
                       color: Colors.white,
                     )),
@@ -345,11 +302,11 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
 
               //-------Collaborator------------
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.person_add_alt,
                   color: Colors.white,
                 ),
-                title: Text('Collaborator',
+                title: const Text('Collaborator',
                     style: TextStyle(
                       color: Colors.white,
                     )),
@@ -360,11 +317,11 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
 
               //--------Labels----------
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.label_outline,
                   color: Colors.white,
                 ),
-                title: Text('Labels',
+                title: const Text('Labels',
                     style: TextStyle(
                       color: Colors.white,
                     )),
@@ -375,11 +332,11 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
 
               //-----Helps & feedback----
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.help_outline,
                   color: Colors.white,
                 ),
-                title: Text('Help & feedback',
+                title: const Text('Help & feedback',
                     style: TextStyle(
                       color: Colors.white,
                     )),
@@ -406,17 +363,21 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
           elevation: 0.0,
           leading: IconButton(
               onPressed: () async {
-                String date = DateFormat.jm().format(DateTime.now());
-                FirebaseFirestore.instance.collection("Notes").add({
-                  "note_title": _titleController.text,
-                  "creation_date": date,
-                  "note_content": _mainController.text,
-                  "color_id": color_id,
-                }).then((value) {
-                  print(value.id);
+                if (_mainController.text.isEmpty) {
                   Navigator.pop(context);
-                }).catchError(
-                    (error) => print("Failed to add new Note due to $error"));
+                } else {
+                  String date = DateFormat.jm().format(DateTime.now());
+                  FirebaseFirestore.instance.collection("Notes").add({
+                    "note_title": _titleController.text,
+                    "creation_date": date,
+                    "note_content": _mainController.text,
+                    "color_id": color_id,
+                  }).then((value) {
+                    print(value.id);
+                    Navigator.pop(context);
+                  }).catchError(
+                      (error) => print("Failed to add new Note due to $error"));
+                }
               },
               icon: Icon(Icons.arrow_back)),
           actions: [
