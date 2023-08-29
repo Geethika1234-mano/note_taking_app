@@ -6,7 +6,6 @@ import 'package:note_taking_app/screens/note_reader.dart';
 import 'package:note_taking_app/styles/app_style.dart';
 import 'package:note_taking_app/widgets/footer.dart';
 import 'package:note_taking_app/widgets/note_card.dart';
-import 'package:note_taking_app/widgets/sidebar.dart';
 
 class Reminders extends StatefulWidget {
   const Reminders({super.key});
@@ -28,6 +27,10 @@ class _RemindersState extends State<Reminders> {
         title: Text(
           "Reminders",
         ),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () => Navigator.pop(context),
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -40,7 +43,6 @@ class _RemindersState extends State<Reminders> {
         ],
         backgroundColor: Colors.transparent,
       ),
-      drawer: SideBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -14,88 +14,86 @@ class _ListItemsPageState extends State<ListItemsPage> {
       backgroundColor: AppStyle.sideColor,
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              //--------Take photo----------
-              ListTile(
-                leading: Icon(
-                  Icons.camera,
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            //--------Take photo----------
+            ListTile(
+              leading: Icon(
+                Icons.camera,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Take Photo',
+                style: TextStyle(
                   color: Colors.white,
                 ),
-                title: Text(
-                  'Take Photo',
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            //--------Add image-----------
+            ListTile(
+              leading: Icon(
+                Icons.photo_library,
+                color: Colors.white,
+              ),
+              title: Text('Add image',
                   style: TextStyle(
                     color: Colors.white,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
+                  )),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
 
-              //--------Add image-----------
-              ListTile(
-                leading: Icon(
-                  Icons.photo_library,
-                  color: Colors.white,
-                ),
-                title: Text('Add image',
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+            //--------Drawing--------------
+            ListTile(
+              leading: Icon(
+                Icons.brush,
+                color: Colors.white,
               ),
+              title: Text('Drawing',
+                  style: TextStyle(
+                    color: Colors.white,
+                  )),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
 
-              //--------Drawing--------------
-              ListTile(
-                leading: Icon(
-                  Icons.brush,
-                  color: Colors.white,
-                ),
-                title: Text('Drawing',
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+            //-------Recording------------
+            ListTile(
+              leading: Icon(
+                Icons.mic_outlined,
+                color: Colors.white,
               ),
+              title: Text('Recording',
+                  style: TextStyle(
+                    color: Colors.white,
+                  )),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
 
-              //-------Recording------------
-              ListTile(
-                leading: Icon(
-                  Icons.mic_outlined,
-                  color: Colors.white,
-                ),
-                title: Text('Recording',
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+            //--------Checkboxes----------
+            ListTile(
+              leading: Icon(
+                Icons.check_box_outlined,
+                color: Colors.white,
               ),
-
-              //--------Checkboxes----------
-              ListTile(
-                leading: Icon(
-                  Icons.check_box_outlined,
-                  color: Colors.white,
-                ),
-                title: Text('Checkboxes',
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
+              title: Text('Checkboxes',
+                  style: TextStyle(
+                    color: Colors.white,
+                  )),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         );
       },
     );
@@ -108,34 +106,80 @@ class _ListItemsPageState extends State<ListItemsPage> {
       context: context,
       builder: (BuildContext context) {
         return Container(
+          padding: EdgeInsets.all(32.0),
+          height: 250,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              //--------Color----------
-              Column(
-                children: [
-                  Text("Color"),
-                  Row(
-                    children: [
-                      Text("1"),
-                      Text("2"),
-                      Text("3"),
-                    ],
-                  ),
-                ],
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //-----color-----------
+              const Text(
+                "Color",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
               ),
-              //--------Background-----------
-              Column(
-                children: [
-                  Text("Background"),
-                  Row(
-                    children: [
-                      Text("1"),
-                      Text("2"),
-                      Text("3"),
-                    ],
-                  ),
-                ],
+              const SizedBox(
+                height: 10,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize
+                      .min, // Ensure the Row doesn't expand horizontally
+                  children: List.generate(AppStyle.cardsColor.length, (index) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: AppStyle.cardsColor[index],
+                        shape: CircleBorder(),
+                      ),
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              //------background-----------
+              const Text(
+                "Background",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize
+                      .min, // Ensure the Row doesn't expand horizontally
+                  children: List.generate(AppStyle.cardsColor.length, (index) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: AppStyle.cardsColor[index],
+                        shape: CircleBorder(),
+                      ),
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                      ),
+                    );
+                  }),
+                ),
               ),
             ],
           ),
