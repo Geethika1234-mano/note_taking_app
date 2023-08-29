@@ -377,7 +377,7 @@ class _SideBarState extends State<SideBar> {
                         _getTitleForIndex(index),
                         style: TextStyle(
                           color: currentPage == _getTitleForIndex(index)
-                              ? Color.fromARGB(255, 7, 144, 255)
+                              ? Color.fromARGB(255, 45, 227, 255)
                               : Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -386,7 +386,7 @@ class _SideBarState extends State<SideBar> {
                       leading: Icon(
                         _getIconForIndex(index),
                         color: currentPage == _getTitleForIndex(index)
-                            ? Colors.blue
+                            ? Color.fromARGB(255, 45, 227, 255)
                             : Colors.white,
                         size: 20,
                       ),
