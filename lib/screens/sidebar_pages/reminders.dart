@@ -15,6 +15,7 @@ class Reminders extends StatefulWidget {
 }
 
 class _RemindersState extends State<Reminders> {
+  bool isSingleItemView = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +38,14 @@ class _RemindersState extends State<Reminders> {
             icon: Icon(Icons.search_outlined),
           ),
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.grid_view),
+            onPressed: () {
+              setState(() {
+                isSingleItemView = !isSingleItemView;
+              });
+            },
+            icon: Icon(isSingleItemView
+                ? Icons.view_agenda_outlined
+                : Icons.grid_view),
           ),
         ],
         backgroundColor: Colors.transparent,
@@ -67,7 +74,7 @@ class _RemindersState extends State<Reminders> {
                   if (snapshot.hasData) {
                     return GridView(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
+                          crossAxisCount: isSingleItemView ? 2 : 1),
                       children: snapshot.data!.docs
                           .map((note) => noteCard(() {
                                 Navigator.push(
