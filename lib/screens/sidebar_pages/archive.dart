@@ -9,6 +9,7 @@ class ArchivePage extends StatefulWidget {
 }
 
 class _ArchivePageState extends State<ArchivePage> {
+  bool isSingleItemView = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +32,14 @@ class _ArchivePageState extends State<ArchivePage> {
             icon: Icon(Icons.search_outlined),
           ),
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.grid_view),
+            onPressed: () {
+              setState(() {
+                isSingleItemView = !isSingleItemView;
+              });
+            },
+            icon: Icon(isSingleItemView
+                ? Icons.view_agenda_outlined
+                : Icons.grid_view_outlined),
           ),
         ],
         backgroundColor: Colors.transparent,
