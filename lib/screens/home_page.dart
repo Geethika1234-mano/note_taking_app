@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isSingleItemView = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,8 +33,14 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.grid_view),
+              onPressed: () {
+                setState(() {
+                  isSingleItemView = !isSingleItemView;
+                });
+              },
+              icon: Icon(isSingleItemView
+                  ? Icons.view_agenda_outlined
+                  : Icons.grid_view),
             ),
             IconButton(
               onPressed: () {},
@@ -68,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.hasData) {
                       return GridView(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
+                            crossAxisCount: isSingleItemView ? 2 : 1),
                         children: snapshot.data!.docs
                             .map((note) => noteCard(() {
                                   Navigator.push(
