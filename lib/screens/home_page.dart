@@ -59,13 +59,73 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 10.0,
               ),
+              ListTile(
+                title: Text(
+                  "Pinned",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                leading: Icon(
+                  Icons.push_pin_outlined,
+                  color: Colors.white,
+                ),
+                minLeadingWidth: 0,
+              ),
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("Pinned")
+                      .snapshots(), // Fetch "Pinned" items here
+                  builder:
+                      (context, AsyncSnapshot<QuerySnapshot> pinnedSnapshot) {
+                    // Checking the connection state for "Pinned" items
+                    if (pinnedSnapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    if (pinnedSnapshot.hasData) {
+                      // Display "Pinned" items
+                      return GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: isSingleItemView ? 2 : 1,
+                        ),
+                        children: pinnedSnapshot.data!.docs
+                            .map((note) => noteCard(() {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              NoteReaderScreen(note)));
+                                }, note))
+                            .toList(),
+                      );
+                    }
+
+                    return Text(
+                      "There are no Pinned Items",
+                      style: GoogleFonts.nunito(color: Colors.white),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 5.0),
+              ListTile(
+                title: Text(
+                  "Others",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("Notes")
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    //checking the connection state, if we still load the data we can display a progress bar
+                    // Checking the connection state, if we still load the data we can display a progress bar
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -73,9 +133,11 @@ class _HomePageState extends State<HomePage> {
                     }
 
                     if (snapshot.hasData) {
+                      // Display "Notes" items
                       return GridView(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: isSingleItemView ? 2 : 1),
+                          crossAxisCount: isSingleItemView ? 2 : 1,
+                        ),
                         children: snapshot.data!.docs
                             .map((note) => noteCard(() {
                                   Navigator.push(
@@ -94,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

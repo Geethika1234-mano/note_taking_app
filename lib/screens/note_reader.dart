@@ -417,7 +417,18 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
               )),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                FirebaseFirestore.instance.collection("Pinned").add({
+                  "note_title": _titleController.text,
+                  "creation_date": date,
+                  "note_content": _mainController.text,
+                  "color_id": color_id,
+                }).then((value) {
+                  print(value.id);
+                  Navigator.pop(context);
+                }).catchError(
+                    (error) => print("Failed to pin Note due to $error"));
+              },
               icon: const Icon(Icons.push_pin_outlined, color: Colors.black),
             ),
             IconButton(
@@ -476,7 +487,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                 icon: const Icon(
                   Icons.add_box_outlined,
                 ),
-                color: Colors.white,
+                color: Colors.black,
               ),
               IconButton(
                 onPressed: () {
@@ -485,13 +496,13 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                 icon: const Icon(
                   Icons.palette_outlined,
                 ),
-                color: Colors.white,
+                color: Colors.black,
               ),
               _mainController.text.isEmpty
                   ? Text(
                       "Edited $date",
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     )
                   : Row(
@@ -499,12 +510,12 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                         IconButton(
                           onPressed: _undo,
                           icon: const Icon(Icons.undo),
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                         IconButton(
                           onPressed: _redo,
                           icon: const Icon(Icons.redo),
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ],
                     ),
@@ -515,7 +526,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                 icon: const Icon(
                   Icons.more_vert,
                 ),
-                color: Colors.white,
+                color: Colors.black,
               ),
             ],
           ),
