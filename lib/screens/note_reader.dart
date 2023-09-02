@@ -389,9 +389,59 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
       child: Scaffold(
         backgroundColor: AppStyle.cardsColor[color_id],
         appBar: AppBar(
-          backgroundColor: AppStyle.cardsColor[color_id],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
           elevation: 0.0,
-          iconTheme: IconThemeData(color: Colors.black),
+          leading: IconButton(
+              onPressed: () async {
+                if (_mainController.text.isEmpty) {
+                  Navigator.pop(context);
+                } else {
+                  String date = DateFormat.jm().format(DateTime.now());
+                  FirebaseFirestore.instance.collection("Notes").add({
+                    "note_title": _titleController.text,
+                    "creation_date": date,
+                    "note_content": _mainController.text,
+                    "color_id": color_id,
+                  }).then((value) {
+                    print(value.id);
+                    Navigator.pop(context);
+                  }).catchError(
+                      (error) => print("Failed to add new Note due to $error"));
+                }
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              )),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.push_pin_outlined, color: Colors.black),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notification_add_outlined,
+                  color: Colors.black),
+            ),
+            IconButton(
+              onPressed: () {
+                FirebaseFirestore.instance.collection("Archive").add({
+                  "note_title": _titleController.text,
+                  "creation_date": date,
+                  "note_content": _mainController.text,
+                  "color_id": color_id,
+                }).then((value) {
+                  print(value.id);
+                  Navigator.pop(context);
+                }).catchError(
+                    (error) => print("Failed to add new Note due to $error"));
+              },
+              icon: const Icon(Icons.archive_outlined, color: Colors.black),
+            ),
+          ],
+          backgroundColor: Colors.transparent,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

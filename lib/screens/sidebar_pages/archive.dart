@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:note_taking_app/screens/note_reader.dart';
 import 'package:note_taking_app/styles/app_style.dart';
+import 'package:note_taking_app/widgets/note_card.dart';
 
 class ArchivePage extends StatefulWidget {
   const ArchivePage({super.key});
@@ -47,18 +51,48 @@ class _ArchivePageState extends State<ArchivePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
-            Text(
-              "Your archived notes appear here",
-              style: TextStyle(
-                color: Colors.white,
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("Archive")
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  //checking the connection state, if we still load the data we can display a progress bar
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  if (snapshot.hasData) {
+                    return GridView(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: isSingleItemView ? 2 : 1),
+                      children: snapshot.data!.docs
+                          .map((note) => noteCard(() {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            NoteReaderScreen(note)));
+                              }, note))
+                          .toList(),
+                    );
+                  }
+
+                  return Text(
+                    "There's no Notes",
+                    style: GoogleFonts.nunito(color: Colors.white),
+                  );
+                },
               ),
-            ),
+            )
           ],
         ),
       ),
