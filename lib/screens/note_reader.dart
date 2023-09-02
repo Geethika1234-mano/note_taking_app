@@ -223,30 +223,32 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                       )),
                   onTap: () {
                     // Adding the note to the trash
+                    // First, delete the document from the "Notes" collection
+                    FirebaseFirestore.instance
+                        .collection("Notes")
+                        .doc(widget
+                            .doc.id) // Use the ID from the widget's document
+                        .delete()
+                        .then((_) {
+                      print("Document successfully deleted from Notes!");
+                    }).catchError((error) {
+                      print("Failed to delete document from Notes: $error");
+                    });
+
+// Next, add the document to the "Trash" collection
                     FirebaseFirestore.instance.collection("Trash").add({
-                      "note_title": _titleController.text,
-                      "creation_date": date,
-                      "note_content": _mainController.text,
-                      "color_id": color_id,
+                      "note_title": widget.doc["note_title"],
+                      "creation_date": widget.doc["creation_date"],
+                      "note_content": widget.doc["note_content"],
+                      "color_id": widget.doc["color_id"],
                     }).then((DocumentReference docRef) {
                       print("Document ID: ${docRef.id}");
-
-                      // Deleting the document after it has been successfully added
-                      FirebaseFirestore.instance
-                          .collection("Notes")
-                          .doc(docRef.id) // Use the ID obtained from docRef
-                          .delete()
-                          .then((_) {
-                        print("Document successfully deleted!");
-                      }).catchError((error) {
-                        print("Failed to delete document: $error");
-                      });
-
-                      Navigator.pop(context);
                       Navigator.pop(context);
                     }).catchError((error) {
                       print("Failed to add document to Trash: $error");
                     });
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }),
 
               //--------Make a copy-----------
