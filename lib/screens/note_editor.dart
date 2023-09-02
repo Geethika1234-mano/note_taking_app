@@ -12,12 +12,6 @@
 //   State<NoteEditorScreen> createState() => _NoteEditorScreenState();
 // }
 
-// class _NoteEditorScreenState extends State<NoteEditorScreen> {
-//   int color_id = Random().nextInt(AppStyle.cardsColor.length);
-//   String date = DateTime.now().toString();
-//   TextEditingController _titleController = TextEditingController();
-//   TextEditingController _mainController = TextEditingController();
-
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,6 +31,8 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   String date = DateFormat.jm().format(DateTime.now());
   TextEditingController _titleController = TextEditingController();
   TextEditingController _mainController = TextEditingController();
+  List<String> redoHistory = [];
+  List<String> history = [];
 
   void _showBottomSheet_01(BuildContext context) {
     showModalBottomSheet(
@@ -351,146 +347,188 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     );
   }
 
+  void _undo() {
+    if (history.isNotEmpty) {
+      setState(() {
+        redoHistory.add(_mainController.text);
+        _mainController.text = history.removeLast();
+      });
+    }
+  }
+
+  void _redo() {
+    if (redoHistory.isNotEmpty) {
+      setState(() {
+        history.add(_mainController.text);
+        _mainController.text = redoHistory.removeLast();
+      });
+    }
+  }
+
+  void _updateHistory(String text) {
+    setState(() {
+      history.add(text);
+      redoHistory.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppStyle.mainColor,
-        appBar: AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          elevation: 0.0,
-          leading: IconButton(
-              onPressed: () async {
-                if (_mainController.text.isEmpty) {
+    return Scaffold(
+      backgroundColor: AppStyle.mainColor,
+      appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        elevation: 0.0,
+        leading: IconButton(
+            onPressed: () async {
+              if (_mainController.text.isEmpty) {
+                Navigator.pop(context);
+              } else {
+                String date = DateFormat.jm().format(DateTime.now());
+                FirebaseFirestore.instance.collection("Notes").add({
+                  "note_title": _titleController.text,
+                  "creation_date": date,
+                  "note_content": _mainController.text,
+                  "color_id": color_id,
+                }).then((value) {
+                  print(value.id);
                   Navigator.pop(context);
-                } else {
-                  String date = DateFormat.jm().format(DateTime.now());
-                  FirebaseFirestore.instance.collection("Notes").add({
-                    "note_title": _titleController.text,
-                    "creation_date": date,
-                    "note_content": _mainController.text,
-                    "color_id": color_id,
-                  }).then((value) {
-                    print(value.id);
-                    Navigator.pop(context);
-                  }).catchError(
-                      (error) => print("Failed to add new Note due to $error"));
-                }
-              },
-              icon: Icon(Icons.arrow_back)),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.push_pin_outlined),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notification_add_outlined),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.archive_outlined),
-            ),
-          ],
-          backgroundColor: Colors.transparent,
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 8.0,
-              ),
-
-              //-------------Title----------------
-              ListTile(
-                title: TextField(
-                  controller: _titleController,
-                  decoration: const InputDecoration(
-                    hintText: "Title",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    focusColor: Colors.grey,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 26,
-                  ),
-                ),
-              ),
-
-              // ------------List Items----------
-              ListTile(
-                title: TextField(
-                  controller: _mainController,
-                  keyboardType: TextInputType.multiline,
-                  decoration: const InputDecoration(
-                    hintText: "Note",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    focusColor: Colors.grey,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 20,
-                  ),
-                ),
-              )
-            ],
+                }).catchError(
+                    (error) => print("Failed to add new Note due to $error"));
+              }
+            },
+            icon: Icon(Icons.arrow_back)),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.push_pin_outlined),
           ),
-        ),
-
-        //--------footer-------------
-        persistentFooterButtons: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  _showBottomSheet_01(context);
-                },
-                icon: Icon(
-                  Icons.add_box_outlined,
-                ),
-                color: Colors.white,
-              ),
-              IconButton(
-                onPressed: () {
-                  _showBottomSheet_02(context);
-                },
-                icon: Icon(
-                  Icons.palette_outlined,
-                ),
-                color: Colors.white,
-              ),
-              Text(
-                "Edited $date",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  _showBottomSheet_03(context);
-                },
-                icon: Icon(
-                  Icons.more_vert,
-                ),
-                color: Colors.white,
-              ),
-            ],
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notification_add_outlined),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.archive_outlined),
           ),
         ],
-        persistentFooterAlignment: AlignmentDirectional.bottomStart,
+        backgroundColor: Colors.transparent,
       ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 8.0,
+            ),
+
+            //-------------Title----------------
+            ListTile(
+              title: TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  fillColor: Colors.white,
+                  hintText: "Title",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  focusColor: Colors.grey,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 26,
+                ),
+              ),
+            ),
+
+            // ------------List Items----------
+            ListTile(
+              title: TextField(
+                controller: _mainController,
+                keyboardType: TextInputType.multiline,
+                decoration: const InputDecoration(
+                  hintText: "Note",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  focusColor: Colors.grey,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 20,
+                ),
+                onChanged: (value) {
+                  _updateHistory(value);
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+
+      //--------footer-------------
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: () {
+                _showBottomSheet_01(context);
+              },
+              icon: const Icon(
+                Icons.add_box_outlined,
+              ),
+              color: Colors.white,
+            ),
+            IconButton(
+              onPressed: () {
+                _showBottomSheet_02(context);
+              },
+              icon: const Icon(
+                Icons.palette_outlined,
+              ),
+              color: Colors.white,
+            ),
+            _mainController.text.isEmpty
+                ? Text(
+                    "Edited $date",
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  )
+                : Row(
+                    children: [
+                      IconButton(
+                        onPressed: _undo,
+                        icon: const Icon(Icons.undo),
+                        color: Colors.white,
+                      ),
+                      IconButton(
+                        onPressed: _redo,
+                        icon: const Icon(Icons.redo),
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+            IconButton(
+              onPressed: () {
+                _showBottomSheet_03(context);
+              },
+              icon: const Icon(
+                Icons.more_vert,
+              ),
+              color: Colors.white,
+            ),
+          ],
+        ),
+      ],
+      persistentFooterAlignment: AlignmentDirectional.bottomStart,
     );
   }
 }

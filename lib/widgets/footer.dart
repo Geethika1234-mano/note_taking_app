@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/functions/ImagePickerHelper.dart';
 import 'package:note_taking_app/screens/footer_pages/list_items_page.dart';
 import 'package:note_taking_app/screens/footer_pages/paint_page.dart';
 import 'package:note_taking_app/styles/app_style.dart';
@@ -55,7 +56,7 @@ class _FooterButtonState extends State<FooterButton> {
           IconButton(
             padding: EdgeInsets.all(0),
             color: AppStyle.sideColor,
-            onPressed: () {},
+            onPressed: () => ImagePickerHelper.showImagePickerDialog(context),
             icon: Icon(
               Icons.photo_outlined,
               color: Colors.white,
