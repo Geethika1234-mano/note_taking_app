@@ -227,19 +227,41 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             children: <Widget>[
               //--------Delete----------
               ListTile(
-                leading: const Icon(
-                  Icons.delete_outline,
-                  color: Colors.white,
-                ),
-                title: const Text('Delete',
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              ),
+                  leading: const Icon(
+                    Icons.delete_outline,
+                    color: Colors.white,
+                  ),
+                  title: const Text('Delete',
+                      style: TextStyle(
+                        color: Colors.white,
+                      )),
+                  onTap: () {
+                    // Adding the note to the trash
+                    FirebaseFirestore.instance.collection("Trash").add({
+                      "note_title": _titleController.text,
+                      "creation_date": date,
+                      "note_content": _mainController.text,
+                      "color_id": color_id,
+                    }).then((DocumentReference docRef) {
+                      print("Document ID: ${docRef.id}");
+
+                      // Deleting the document after it has been successfully added
+                      FirebaseFirestore.instance
+                          .collection("Notes")
+                          .doc(docRef.id) // Use the ID obtained from docRef
+                          .delete()
+                          .then((_) {
+                        print("Document successfully deleted!");
+                      }).catchError((error) {
+                        print("Failed to delete document: $error");
+                      });
+
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    }).catchError((error) {
+                      print("Failed to add document to Trash: $error");
+                    });
+                  }),
 
               //--------Make a copy-----------
               ListTile(
