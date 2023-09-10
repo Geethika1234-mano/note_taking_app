@@ -27,12 +27,9 @@ class _PaintPageState extends State<PaintPage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: Colors.white),
           elevation: 0.0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppStyle.sideColor,
         ),
         body: Listener(
           onPointerDown: (details) {

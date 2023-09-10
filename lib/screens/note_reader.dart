@@ -235,6 +235,30 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                       print("Failed to delete document from Notes: $error");
                     });
 
+                    // Next, delete the document from the "Pinned" collection
+                    FirebaseFirestore.instance
+                        .collection("Pinned")
+                        .doc(widget
+                            .doc.id) // Use the ID from the widget's document
+                        .delete()
+                        .then((_) {
+                      print("Document successfully deleted from Notes!");
+                    }).catchError((error) {
+                      print("Failed to delete document from Notes: $error");
+                    });
+
+                    // Then, delete the document from the "Archive" collection
+                    FirebaseFirestore.instance
+                        .collection("Archive")
+                        .doc(widget
+                            .doc.id) // Use the ID from the widget's document
+                        .delete()
+                        .then((_) {
+                      print("Document successfully deleted from Notes!");
+                    }).catchError((error) {
+                      print("Failed to delete document from Notes: $error");
+                    });
+
 // Next, add the document to the "Trash" collection
                     FirebaseFirestore.instance.collection("Trash").add({
                       "note_title": widget.doc["note_title"],

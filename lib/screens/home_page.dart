@@ -105,10 +105,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    return Text(
-                      "There are no Pinned Items",
-                      style: GoogleFonts.nunito(color: Colors.white),
-                    );
+                    return SizedBox.shrink();
                   },
                 ),
               ),

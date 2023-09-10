@@ -21,7 +21,7 @@ class ImagePickerHelper {
               ListTile(
                 minVerticalPadding: 0,
                 minLeadingWidth: 0,
-                leading: Icon(
+                leading: const Icon(
                   Icons.camera_outlined,
                   color: Colors.white,
                 ),
@@ -36,7 +36,7 @@ class ImagePickerHelper {
               ),
               ListTile(
                 minLeadingWidth: 0,
-                leading: Icon(
+                leading: const Icon(
                   Icons.image_outlined,
                   color: Colors.white,
                 ),
@@ -55,13 +55,13 @@ class ImagePickerHelper {
   }
 
   static Future<void> _takePhoto(BuildContext context) async {
-    // final imagePicker = ImagePicker();
-    // final pickedFile = await imagePicker.pickImage(source: ImageSource.camera);
+    final imagePicker = ImagePicker();
+    final pickedFile = await imagePicker.pickImage(source: ImageSource.camera);
 
-    // if (pickedFile != null) {
-    //   // _handleCapturedPhoto(context, pickedFile.path);
-    //   {}
-    // }
+    if (pickedFile != null) {
+      // _handleCapturedPhoto(context, pickedFile.path);
+      {}
+    }
     Navigator.pop(context);
   }
 
